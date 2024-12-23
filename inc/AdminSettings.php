@@ -103,6 +103,9 @@ class AdminSettings {
 
 	/**
 	 * Validate the URL to ensure it matches *.ghostmetrics.cloud.
+	 *
+	 * @param string $url The URL to validate.
+	 * @return string The validated and sanitized URL with trailing slash.
 	 */
 	public function validate_url($url) {
 		if (empty($url)) {
@@ -115,8 +118,11 @@ class AdminSettings {
 			return '';
 		}
 
+		// Ensure URL without trailing slash is validated
+		$url_without_slash = rtrim($url, '/');
+
 		// Validate domain pattern (https://*.ghostmetrics.cloud)
-		if (!preg_match('/^https:\/\/[a-zA-Z0-9.-]+\.ghostmetrics\.cloud$/', $url)) {
+		if (!preg_match('/^https:\/\/[a-zA-Z0-9.-]+\.ghostmetrics\.cloud$/', $url_without_slash)) {
 			add_settings_error(
 				'ghost_metrics_settings_group',
 				'ghost_metrics_url_error',
@@ -126,7 +132,7 @@ class AdminSettings {
 			return get_option('ghost-metrics-wp_ghost_metrics_url', '');
 		}
 
-		return esc_url_raw($url);
+		return trailingslashit(esc_url_raw($url_without_slash));
 	}
 
 	/**
