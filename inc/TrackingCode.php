@@ -15,10 +15,10 @@ class TrackingCode {
 	 * @return string
 	 */
 	public static function get_tracking_code() {
-		$ghost_metrics_url = get_option('ghost_metrics_url', '');
-		$embed_mode = get_option('embed_mode', 'regular');
-		$selected_site_id = get_option('selected_site_id', '');
-		$selected_container_id = get_option('selected_container_id', '');
+		$ghost_metrics_url = get_option('ghost-metrics-wp_ghost_metrics_url', '');
+		$embed_mode = get_option('ghost-metrics-wp_embed_mode', 'regular');
+		$selected_site_id = get_option('ghost-metrics-wp_selected_site_id', '');
+		$selected_container_id = get_option('ghost-metrics-wp_selected_container_id', '');
 
 		if (empty($ghost_metrics_url) || empty($selected_site_id)) {
 			return ''; // Return empty if essential settings are missing
@@ -53,7 +53,7 @@ class TrackingCode {
 		$lines[] = "})();";
 		$lines[] = "</script>";
 		$lines[] = "<!-- End Ghost Metrics Tag Manager -->";
-        $lines[] = "";
+		$lines[] = "";
 
 		return implode("\n", $lines);
 	}
@@ -66,14 +66,14 @@ class TrackingCode {
 	 * @return string
 	 */
 	private static function build_standard_embed_code($url, $site_id) {
-		$track_subdomains = get_option("track_subdomains_$site_id", false);
-		$prepend_domain_to_title = get_option("prepend_domain_to_title_$site_id", false);
-		$hide_alias_urls = get_option("hide_alias_urls_$site_id", false);
-		$track_js_disabled = get_option("track_js_disabled_$site_id", false);
-		$cross_domain_linking = get_option("cross_domain_linking_$site_id", false);
-		$client_side_dnt = get_option("client_side_dnt_$site_id", false);
-		$disable_tracking_cookies = get_option("disable_tracking_cookies_$site_id", false);
-		$disable_campaign_parameters = get_option("disable_campaign_parameters_$site_id", false);
+		$track_subdomains = get_option("ghost-metrics-wp_track_subdomains_$site_id", false);
+		$prepend_domain_to_title = get_option("ghost-metrics-wp_prepend_domain_to_title_$site_id", false);
+		$hide_alias_urls = get_option("ghost-metrics-wp_hide_alias_urls_$site_id", false);
+		$track_js_disabled = get_option("ghost-metrics-wp_track_js_disabled_$site_id", false);
+		$cross_domain_linking = get_option("ghost-metrics-wp_cross_domain_linking_$site_id", false);
+		$client_side_dnt = get_option("ghost-metrics-wp_client_side_dnt_$site_id", false);
+		$disable_tracking_cookies = get_option("ghost-metrics-wp_disable_tracking_cookies_$site_id", false);
+		$disable_campaign_parameters = get_option("ghost-metrics-wp_disable_campaign_parameters_$site_id", false);
 
 		$lines = [];
 		$lines[] = "<!-- Ghost Metrics -->";

@@ -22,6 +22,8 @@ class Plugin {
 		register_activation_hook( __FILE__, [ $self, 'ghost_metrics_wp_activate' ] );
 		register_deactivation_hook( __FILE__, [ $self, 'ghost_metrics_wp_deactivate' ] );
 
+		add_filter( 'plugin_action_links_ghost-metrics-wp/ghost-metrics-wp.php', [ $self, 'filter_plugin_action_links' ] );
+
 		// Add tracking code to the site header
 		add_action( 'wp_head', [ $self, 'add_tracking_code' ] );
 
@@ -64,6 +66,13 @@ class Plugin {
 		if ( version_compare( PHP_VERSION, GHOST_METRICS_WP_PHP_MINIMUM, '<' ) ) {
 			return;
 		}
+	}
+
+	public function filter_plugin_action_links( array $actions ) {
+		return array_merge( array(
+			'settings' => '<a href="options-general.php?page=ghost-metrics-settings">' . esc_html__( 'Settings', 'ghost-metrics-wp' ) . '</a>',
+			'help' => '<a target="_blank" href="https://docs.ghostmetrics.io/">' . esc_html__( 'Help', 'ghost-metrics-wp' ) . '</a>',
+		), $actions );
 	}
 
 	/**
