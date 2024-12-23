@@ -1,0 +1,60 @@
+/* Admin Page Custom Styles */
+.ghost-metrics-admin {
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgb(0 0 0 / 10%);
+}
+
+.ghost-metrics-admin h1 {
+    font-size: 28px;
+    color: #6439f5;
+}
+
+.ghost-metrics-admin .description {
+    color: #666;
+    margin-bottom: 20px;
+}
+
+.ghost-metrics-admin table.form-table th {
+    font-weight: 600;
+}
+
+.ghost-metrics-admin input[type="text"],
+.ghost-metrics-admin input[type="password"],
+.ghost-metrics-admin select {
+    width: 100%;
+    max-width: 500px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin-top: 5px;
+}
+
+.ghost-metrics-admin hr {
+    margin: 40px 0;
+    border: none;
+    border-top: 1px solid #e5e5e5;
+}
+
+.ghost-metrics-admin .settings-section h2 {
+    color: #6439f5;
+    border-bottom: 2px solid rgb(100 57 245 / 10%);
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+
+.ghost-metrics-admin .submit .button {
+    background: #6439f5;
+    color: #fff;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background 0.3s;
+}
+
+.ghost-metrics-admin .submit  .button:hover {
+    background: #4d2abf;
+}
