@@ -55,13 +55,13 @@ class AdminSettings {
 
 		register_setting( 'ghost_metrics_settings_group', 'ghost-metrics-wp_ghost_metrics_url', [
 			'type'              => 'string',
-			'sanitize_callback' => 'sanitize_text_field',
+			'sanitize_callback' => [ $this, 'validate_url' ],
 			'default'           => '',
 		] );
 
 		register_setting( 'ghost_metrics_settings_group', 'ghost-metrics-wp_auth_token', [
 			'type'              => 'string',
-			'sanitize_callback' => 'sanitize_text_field',
+			'sanitize_callback' => [ $this, 'validate_auth_token' ],
 			'default'           => '',
 		] );
 
@@ -99,6 +99,58 @@ class AdminSettings {
 				] );
 			}
 		}
+	}
+
+	/**
+	 * Validate the URL to ensure it matches *.ghostmetrics.cloud.
+	 */
+	public function validate_url($url) {
+		if (empty($url)) {
+			add_settings_error(
+				'ghost_metrics_settings_group',
+				'ghost_metrics_url_error',
+				__('URL cannot be empty.', 'ghost-metrics-wp'),
+				'error'
+			);
+			return '';
+		}
+
+		// Validate domain pattern (https://*.ghostmetrics.cloud)
+		if (!preg_match('/^https:\/\/[a-zA-Z0-9.-]+\.ghostmetrics\.cloud$/', $url)) {
+			add_settings_error(
+				'ghost_metrics_settings_group',
+				'ghost_metrics_url_error',
+				__('Invalid URL. Only subdomains of ghostmetrics.cloud are allowed.', 'ghost-metrics-wp'),
+				'error'
+			);
+			return get_option('ghost-metrics-wp_ghost_metrics_url', '');
+		}
+
+		return esc_url_raw($url);
+	}
+
+	/**
+	 * Validate the Auth Token by attempting an API request.
+	 */
+	public function validate_auth_token($token) {
+		$url = get_option('ghost-metrics-wp_ghost_metrics_url');
+		if (empty($url) || empty($token)) {
+			return '';
+		}
+
+		$response = wp_remote_get("$url/index.php?module=API&method=SitesManager.getSitesWithAdminAccess&format=json&token_auth=$token");
+
+		if (is_wp_error($response) || wp_remote_retrieve_response_code($response) !== 200) {
+			add_settings_error(
+				'ghost_metrics_settings_group',
+				'ghost_metrics_auth_error',
+				__('Failed to authenticate with the provided token.', 'ghost-metrics-wp'),
+				'error'
+			);
+			return get_option('ghost-metrics-wp_auth_token', '');
+		}
+
+		return sanitize_text_field($token);
 	}
 
     /**
@@ -148,7 +200,7 @@ class AdminSettings {
                             <td>
                                 <input type="text" name="ghost-metrics-wp_ghost_metrics_url"
                                        value="<?php echo esc_attr( $ghost_metrics_url ); ?>"/>
-                                <p class="description"><?php esc_html_e( 'Enter the URL for your Ghost Metrics instance.', 'ghost-metrics-wp' ); ?></p>
+                                <p class="description"><?php esc_html_e('Enter the URL for your Ghost Metrics instance. Only subdomains of ghostmetrics.cloud are allowed.', 'ghost-metrics-wp'); ?></p>
                             </td>
                         </tr>
                         <tr>
