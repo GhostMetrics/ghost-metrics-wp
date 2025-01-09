@@ -1,80 +1,80 @@
 # Ghost Metrics WP
 
 [![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
-[![License: GPL v2](https://img.shields.io/badge/License-GPL_v2-blue.svg)](https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html)
+[![License: GPL v3](https://img.shields.io/badge/License-GPL_v3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0.html)
 [![PluginTerritory](https://img.shields.io/badge/Plugin%20Territory-Free-blue.svg?logo=wordpress)]()
-[![Release Version](https://img.shields.io/github/release/sarahcssiqueira/ghost-metrics-wp.svg?color)](https://github.com/sarahcssiqueira/ghost-metrics-wp/releases/latest)
+[![Release Version](https://img.shields.io/github/release/GhostMetrics/ghost-metrics-wp.svg?color)](https://github.com/GhostMetrics/ghost-metrics-wp/releases/latest)
 
-Ghost Metrics WP is a **starter** WordPress plugin to use as a base to build WordPress plugins from scratch. Contains the configuration files for handling the assets files like Javascript, CSS, and images using [Webpack](https://webpack.js.org/).
-It uses [Composer](https://getcomposer.org/) to handle [WordPress Coding Standards](https://github.com/WordPress/WordPress-Coding-Standards) and autoloader. The WordPress hooks (actions and filters) are registered using a custom **initialize() method** instead to hook them in the \_\_constructor of each class. This `initialize method` is automatically called in the Init class (It seems overengineering now, but will be useful as you plugin grows up).
+## Description
 
-Some topics covered in this project:
+**Ghost Metrics WP** is a WordPress plugin that integrates your WordPress website with the Ghost Metrics platform, providing advanced analytics and tracking capabilities.
 
-- [Webpack](https://webpack.js.org/) for managing, compiling, and optimizing the plugin's asset files;
-- [Eslint](https://eslint.org/);
-- [Babel](https://babeljs.io/);
-- [SASS](http://sass-lang.com/);
-- [Stylelint](https://stylelint.io/);
-- [WordPress Coding Standards](https://github.com/WordPress/WordPress-Coding-Standards);
-- [PHP Namespaces](http://php.net/manual/pl/language.namespaces.php);
-- [Autoload](https://www.php.net/manual/en/language.oop5.autoload.php);
+With this plugin, you can:
+- Configure your Ghost Metrics instance securely within WordPress.
+- Embed tracking scripts or Tag Manager for real-time data collection.
+- Manage advanced tracking options, such as cross-domain linking, DoNotTrack compliance, and subdomain tracking.
+- Enable seamless integration with Ghost Metrics for subdomains of `ghostmetrics.cloud`.
 
-# Usage
+Ghost Metrics WP ensures your analytics remain private, secure, and compliant.
 
-Clone the repository with `git clone https://github.com/sarahcssiqueira/ghost-metrics-wp` or download the latest [release](https://github.com/sarahcssiqueira/ghost-metrics-wp/releases). Place it in the **/wp-content/plugins/** folder of your WordPress installation.
+---
 
 ## Install Setup Packages
 
+Install the necessary dependencies for development:
+
 - `npm install && composer install`
 
-# Development
+## Development
 
-## Start Development Server
+### Start Development Server
+
+Run the development server to watch for changes and rebuild assets:
 
 - `npm run dev`
 
-## Run PHPCS
+### Run PHPCS
 
-- `composer cs`
-- `composer cbf`
+Ensure your code adheres to the WordPress PHP coding standards:
 
-# Build
+- `composer cs` - Check for coding standard violations.
+- `composer cbf` - Automatically fix coding standard violations.
 
-To optimize and minify assets to the build folder with wepback run:
+## Build
+
+To optimize and minify assets to the build folder with Webpack, run:
 
 - `npm run build`
 
-### PHP Classes
+---
 
-Classes are automatically loaded by the Init class with the method **register_classes_list**:
+## Features
 
-```
-    /**
-	 * Loop through the classes list, initialize them,
-	 * and call the initialize() method if it exists
-	 */
-	public static function register_classes_list() {
-		foreach ( self::classes_list() as $class ) {
-			$classname = self::instantiate( $class );
-			if ( method_exists( $classname, 'initialize' ) ) {
-				$classname->initialize();
-			}
-		}
-	}
-```
+- **Secure Integration**: Add your Ghost Metrics URL and authentication token securely.
+- **Custom Tracking Options**: Enable or disable advanced tracking features directly from the WordPress admin.
+- **Flexible Embed Modes**: Choose between standard embed and Tag Manager integration.
+- **Domain Validation**: Ensures only subdomains of `ghostmetrics.cloud` can be used, enhancing security.
+- **Customizable Settings**: Tailor tracking options for specific sites or containers.
 
-To add your new classes, make sure add them to the array present in the method **classes_list**:
+---
 
-```
-	/**
-	 * Store the classes inside an array
-	 *
-	 * @return array Full list of classes
-	 */
-	public static function classes_list() {
-		return [
-			Plugin::class,
-            YourNewClass::class,
-		];
-	}
-```
+## Requirements
+
+- WordPress 5.8 or higher
+- PHP 7.4 or higher
+- Node.js (for asset builds)
+- Composer (for PHP dependency management)
+
+---
+
+## License
+
+This plugin is licensed under the [GPL v3](https://www.gnu.org/licenses/gpl-3.0.html). See the LICENSE file for more details.
+
+---
+
+## Support
+
+For issues, questions, or feature requests, visit the [GitHub repository](https://github.com/GhostMetrics/ghost-metrics-wp/issues).
+
+Happy tracking!
