@@ -22,6 +22,8 @@
  */
 defined( 'ABSPATH' ) || exit;
 
+require_once __DIR__ . '/vendor/yahnis-elsts/plugin-update-checker/plugin-update-checker.php';
+use YahnisElsts\PluginUpdateChecker\v5\PucFactory;
 
 /**
  * Define essential constants.
@@ -32,13 +34,22 @@ define( 'GHOST_METRICS_WP_WP_MINIMUM', '6.4.0' );
 define( 'GHOST_METRICS_WP_DIR', plugin_dir_path( __FILE__ ) );
 define( 'GHOST_METRICS_WP_URL', plugin_dir_url( __FILE__ ) );
 
+$myUpdateChecker = PucFactory::buildUpdateChecker(
+	'https://github.com/GhostMetrics/ghost-metrics-wp/',
+	__FILE__,
+	'ghost-metrics-wp'
+);
+
+//Set the branch that contains the stable release.
+$myUpdateChecker->setBranch('main');
+
+
 /**
  * Composer Autoload
  */
 if ( file_exists( __DIR__ . '/vendor/autoload.php' ) ) {
 	require_once __DIR__ . '/vendor/autoload.php';
 }
-
 
 /**
  * Bootstraps the plugin
