@@ -18,7 +18,7 @@
     "plugin"
   ],
   "author": "Ghost Metrics",
-  "license": "GPLv2 or later",
+  "license": "GPLv3 or later",
   "browserslist": [
     "defaults"
   ],

@@ -4,11 +4,11 @@
  * Plugin URI:        https://ghostmetrics.io/
  * Description:       Add Ghost Metrics to your WordPress site.
  * Version:           1.0.0
- * Requires at least: 5.3
- * Requires PHP:      7.2
+ * Requires at least: 6.4.0
+ * Requires PHP:      7.4
  * Author:            Ghost Metrics
  * Author URI:        https://ghostmetrics.io/
- * License:           GPLv2 or later
+ * License:           GPLv3 or later
  * License URI:       https://www.gnu.org/licenses/gpl.html
  * Text Domain:       ghost-metrics-wp
  * Domain Path:       /languages

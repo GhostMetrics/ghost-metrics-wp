@@ -1,4 +1,27 @@
-/vendor/
+# Node modules
 /node_modules/
+
+# PHPCS / PHPUnit caches
 .phpcs.cache
 .phpunit.result.cache
+
+# macOS system files
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon
+._*
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+.AppleDB
+.AppleDesktop
+Network Trash Folder
+Temporary Items
+.apdisk
+
+# Composer PHAR
+composer.phar
